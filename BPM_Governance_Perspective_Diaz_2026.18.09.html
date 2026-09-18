@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Ernesto Diaz">
+<meta name="description" content="Perspective: why business process management matters and why it needs governance led by business process owners.">
+<title>Why business process management matters, and why it needs governance led by business process owners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky-50:#F0F9FF; --sky-100:#E0F2FE; --sky-200:#BAE6FD; --sky-300:#7DD3FC; --sky-400:#38BDF8;
+  --sky-500:#0EA5E9; --sky-600:#0284C7; --sky-700:#0369A1; --sky-800:#075985; --sky-900:#0C4A6E;
+  --amber:#F59E0B; --amber-soft:#FEF3C7;
+  --paper:#FFFFFF; --ink:#1E293B; --muted:#5B6B7C; --rule:#D5DEE8; --tint:#F0F9FF; --tint-2:#E0F2FE;
+  --tablehead:#E0F2FE; --zebra:#F7FBFF;
+  --serif:"Merriweather", Georgia, "Times New Roman", serif;
+  --sans:"Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0B1626; --ink:#E6EDF5; --muted:#A3B1C2; --rule:#2A3A4E; --tint:#10233A; --tint-2:#132C47;
+    --tablehead:#132C47; --zebra:#0F1D30; --amber-soft:#3B2E0E;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0B1626; --ink:#E6EDF5; --muted:#A3B1C2; --rule:#2A3A4E; --tint:#10233A; --tint-2:#132C47;
+  --tablehead:#132C47; --zebra:#0F1D30; --amber-soft:#3B2E0E;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:1.05rem;line-height:1.6}
+a{color:var(--sky-700)}
+.band{height:10px;background:linear-gradient(90deg,var(--sky-800),var(--sky-500),var(--sky-300))}
+.journal{max-width:760px;margin:0 auto;padding:.9rem 1.25rem 0;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:1px solid var(--rule);font-size:.9rem;color:var(--muted)}
+.journal b{font-family:var(--serif);color:var(--sky-800);font-size:1.05rem;font-weight:700}
+.wrap{max-width:760px;margin:0 auto;padding:0 1.25rem 4rem}
+header.article{padding:2rem 0 1.5rem;border-bottom:1px solid var(--rule)}
+.kicker{font-weight:600;color:var(--sky-700);font-size:.95rem;margin:0 0 .6rem}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(1.7rem,3.6vw,2.35rem);line-height:1.25;margin:0 0 1rem;letter-spacing:-.01em}
+.standfirst{font-family:var(--serif);font-style:italic;font-size:1.12rem;line-height:1.65;color:var(--ink);margin:0 0 1.25rem;max-width:64ch}
+.authors{margin:0 0 .35rem;font-size:1rem}
+.authors b{font-weight:600}
+.affil,.dates{margin:0;font-size:.9rem;color:var(--muted)}
+.dates{margin-top:.5rem}
+.abstract{margin:1.75rem 0 0;padding:1.1rem 1.25rem;background:var(--tint);border-left:4px solid var(--sky-500)}
+.abstract h2{margin:0 0 .5rem;font-size:1rem;font-weight:700;color:var(--sky-800)}
+.abstract p{margin:0 0 .8rem;font-size:1.02rem;line-height:1.65}
+.abstract p:last-child{margin-bottom:0}
+.absrow{display:flex;gap:1.25rem;align-items:stretch;margin:1.75rem 0 0}
+.absrow .abstract{flex:1;margin:0}
+.nav{flex:0 0 200px;padding:.8rem .9rem;border-left:1px solid var(--rule);font-size:.72rem;line-height:1.35;align-self:flex-start;position:sticky;top:1rem}
+.nav h2{margin:0 0 .6rem;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.nav ol{list-style:none;margin:0;padding:0;position:relative}
+.nav ol::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:1.5px;background:var(--sky-300)}
+.nav li{position:relative;padding:0 0 .55rem 1.5rem;margin:0}
+.nav li:last-child{padding-bottom:0}
+.nav li::before{content:attr(data-n);position:absolute;left:0;top:.05rem;width:18px;height:18px;border-radius:50%;background:var(--sky-600);color:#fff;font-size:.6rem;font-weight:700;display:flex;align-items:center;justify-content:center}
+.nav a{font-weight:600;color:var(--sky-800);text-decoration:none}
+.nav a:hover{text-decoration:underline}
+.nav span{display:none}
+@media (max-width:760px){.absrow{flex-direction:column}.nav{flex:none;border-left:none;border-top:1px solid var(--rule);position:static;padding:.8rem 0 0}.nav span{display:block;color:var(--muted)}}
+html{scroll-behavior:smooth}
+.keypoints{margin:1.5rem 0 0;padding:1rem 1.25rem 1rem;border:1px solid var(--sky-300);border-radius:4px}
+.keypoints h2{margin:0 0 .5rem;font-size:1rem;color:var(--sky-800)}
+.keypoints ul{margin:0;padding-left:1.15rem}
+.keypoints li{margin:.3rem 0}
+main h2{font-family:var(--sans);font-weight:700;font-size:1.25rem;color:var(--sky-800);margin:2.4rem 0 .8rem;padding-top:.35rem}
+main h3{font-family:var(--sans);font-weight:700;font-size:1.05rem;color:var(--ink);margin:1.6rem 0 .5rem}
+main p{margin:0 0 1rem;max-width:70ch}
+main ul,main ol{max-width:70ch}
+sup{font-size:.72em;line-height:0;color:var(--sky-700)}
+sup a{color:inherit;text-decoration:none}
+sup a:hover{text-decoration:underline}
+figure{margin:2rem 0;padding-top:.9rem;border-top:2px solid var(--sky-600)}
+figure svg{width:100%;height:auto;display:block}
+.figrow{display:flex;gap:1.6rem;align-items:center}
+.figrow svg{flex:0 0 60%;width:60%}
+.figrow ul{flex:1;margin:0;padding-left:1rem;font-size:.82rem;line-height:1.45}
+.figrow li{margin:0 0 .45rem}
+.figrow li b{color:var(--sky-800)}
+@media (max-width:700px){.figrow{flex-direction:column}.figrow svg{flex:none;width:100%}}
+figcaption{margin-top:.75rem;font-size:.9rem;line-height:1.5;color:var(--muted)}
+figcaption .figlabel{color:var(--sky-800);font-weight:700}
+figcaption .figtitle{color:var(--ink);font-weight:700}
+.sidefig{float:right;width:220px;margin:0 0 .6rem 1.25rem;padding-top:.5rem;border-top:2px solid var(--sky-600)}
+.sidefig figcaption{font-size:.72rem;line-height:1.35}
+@media (max-width:600px){.sidefig{float:none;width:100%;margin:1rem 0}}
+.tablewrap{clear:both}
+.tablewrap{overflow-x:auto;margin:2rem 0}
+.tabcap{font-size:.92rem;margin:0 0 .5rem;color:var(--ink)}
+.tabcap b{color:var(--sky-800)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;line-height:1.4}
+th{background:var(--tablehead);color:var(--ink);text-align:left;padding:.55rem .6rem;border-top:2px solid var(--sky-600);border-bottom:1px solid var(--sky-300);vertical-align:bottom}
+td{padding:.5rem .6rem;border-bottom:1px solid var(--rule);vertical-align:top}
+tbody tr:nth-child(even) td{background:var(--zebra)}
+td.yes{color:var(--sky-800);font-weight:700}
+td.cond{color:var(--amber);font-weight:700}
+td.no{color:var(--muted);font-weight:700}
+td.lt{font-size:.72rem;line-height:1.35;white-space:nowrap;color:var(--muted)}
+td.lt .y{color:var(--sky-700);font-weight:700}
+td.lt .n{color:var(--muted)}
+td.lt b{color:var(--ink)}
+.tabnote{font-size:.82rem;color:var(--muted);margin:.4rem 0 0}
+.box{margin:2rem 0;padding:1rem 1.25rem 1.1rem;background:var(--tint);border-left:4px solid var(--sky-600);border-radius:0 4px 4px 0}
+.box h3{margin:0 0 .6rem;font-size:1rem;color:var(--sky-800)}
+.box p{margin:0 0 .7rem}
+.box ol,.box ul{margin:0 0 .5rem;padding-left:1.2rem}
+.box li{margin:.25rem 0}
+.mermaid{margin:0;background:transparent;overflow-x:auto;font-family:var(--sans)}
+pre.mermaid{white-space:pre;line-height:1.3}
+.refs{font-size:.88rem;line-height:1.45}
+.refs ol{padding-left:1.6rem;max-width:none}
+.refs li{margin:.35rem 0;padding-left:.2rem}
+.refs i{font-style:italic}
+footer.end{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--rule);font-size:.85rem;color:var(--muted)}
+.svg-ink{fill:var(--ink)}
+.svg-muted{fill:var(--muted)}
+.svg-rule{stroke:var(--rule)}
+.svg-grid{stroke:var(--rule);stroke-dasharray:3 4}
+@media (max-width:600px){
+  body{font-size:1rem}
+  .journal{flex-direction:column;gap:.15rem}
+  main h2{font-size:1.15rem}
+}
+@media print{
+  .band{display:none}
+  body{font-size:10.5pt}
+  figure,.box,.tablewrap{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="band"></div>
+<div class="journal"><b>Quality &amp; Process Governance</b><span>16 September 2026</span></div>
+
+<div class="wrap">
+<header class="article">
+  <p class="kicker">Perspective</p>
+  <h1>Why business process management matters, and why it needs governance led by business process owners</h1>
+  <p class="standfirst">Strategy describes what a company wants to achieve. Processes are how it actually happens, every day, in every site and every function. A company that does not manage its processes deliberately is managing them by accident — and the arrival of artificial intelligence inside those processes makes ownership more, not less, necessary.</p>
+  <p class="authors"><b>Ernesto Diaz</b></p>
+  <p class="affil" id="affil1">Global Quality &amp; Operations, Neuchâtel, Switzerland.</p>
+  <p class="dates">Published online: 16 September 2026</p>
+
+  <div class="absrow">
+  <section class="abstract" aria-labelledby="abs">
+    <h2 id="abs">Abstract</h2>
+    <p>Every organization runs on cross-functional processes, yet most process management programmes stall once the documentation is done: nobody owns the process end to end. This Perspective argues that the missing element is not method or technology but <b>governance</b>, and that its pivot is the <b>business process owner</b> (BPO) — a single accountable person who, coordinating a multidisciplinary team with the proper expertise, designs the standard way of working, ensures the people who operate it are competent, monitors whether it delivers, and drives improvement across every function and site.</p>
+    <p>We propose a practical set of gates for deciding which processes warrant a dedicated BPO and which do not.</p>
+    <p>Finally, we examine how artificial intelligence transforms each of the BPO's responsibilities. Regulatory evidence — including the first FDA warning letter citing over-reliance on AI — can be interpreted as supporting the same conclusion: we argue that the standard that steers an AI agent should remain human-authored and human-owned, and that anything that must never happen belongs in a deterministic control, not an instruction.</p>
+  </section>
+  <nav class="nav" aria-label="Document structure">
+    <h2>In this Perspective</h2>
+    <ol>
+    <li data-n="1"><a href="#s1">What a business process really is</a><span>Definition, boundaries, and why functions optimize their step while nobody optimizes the flow.</span></li>
+    <li data-n="2"><a href="#s2">Why BPM matters to a company</a><span>Five reasons, each delivered or missed inside specific processes.</span></li>
+    <li data-n="3"><a href="#s3">Mapping is not managing</a><span>Why programmes stall after documentation, and the element most often skipped: governance.</span></li>
+    <li data-n="4"><a href="#s4">A governance structure led by business process owners</a><span>Four tiers, the mandate in four verbs, six conditions for the role, four gates before appointing one, and how it fails.</span></li>
+    <li data-n="5"><a href="#s5">How artificial intelligence changes the practice of BPM</a><span>What AI changes in design, training, monitoring and improvement — and what it does not change: accountability.</span></li>
+    <li data-n="6"><a href="#s6">A worked example: applying the gates to quality processes</a><span>Thirteen processes scored against the gates, and the ownership each earns.</span></li>
+    <li data-n="•"><a href="#refs">References</a></li>
+    </ol>
+  </nav>
+  </div>
+
+  <section class="keypoints" aria-labelledby="kp">
+    <h2 id="kp">Key points</h2>
+    <ul>
+      <li>A business process is defined by the boundaries it crosses; functional excellence does not produce process excellence, because performance is lost at the hand-offs.</li>
+      <li>Mapping is not managing. Governance is the most frequently skipped of the six core elements of BPM maturity, and its absence turns process programmes into documentation programmes.</li>
+      <li>The four-tier governance model proposed here — process council, BPO, local process managers, experts and system owners — is designed to assign end-to-end accountability without dissolving functional authority.</li>
+      <li>In the model presented here, only cross-functional, multi-site, tool-supported, measurable processes justify a dedicated BPO; others need a framework owner, a functional head or no owner at all.</li>
+    </ul>
+  </section>
+
+</header>
+
+<main>
+<h2 id="s1">What a business process really is</h2>
+<p>Every organization runs on processes, whether or not anyone has ever drawn them. A business process is a set of linked activities that takes an input, adds value to it and delivers an outcome that matters to a customer, internal or external. Its defining characteristic is that it crosses boundaries. An order-to-cash process passes through sales, logistics, finance and customer service; a change-control process passes through every function that the change touches — technical, operational, regulatory, commercial. No single department ever sees the whole of it.</p>
+<p>This is why processes so often perform badly even when every department performs well. Each function optimizes its own step; nobody optimizes the flow. Companies are organized around tasks and functions, while customers experience outcomes and end-to-end flows<sup><a href="#ref1">1</a></sup>.</p>
+<p>Business process management (BPM) is the discipline that grew out of that thinking. The Association of Business Process Management Professionals describes BPM as a disciplined approach to identify, design, execute, document, measure, monitor and control processes, automated and manual alike, so that they deliver consistent, targeted results aligned with strategy<sup><a href="#ref2">2</a></sup>. Two words in that definition carry the weight: <i>consistent</i> and <i>aligned</i>. They are what separate BPM from a one-off improvement project. Dumas and colleagues put it more plainly: BPM is the art and science of overseeing how work is performed so that outcomes are reliable and opportunities for improvement are seized<sup><a href="#ref3">3</a></sup>.</p>
+
+<h2 id="s2">Why BPM matters to a company</h2>
+<p>Five reasons, each of which is delivered or missed inside specific processes (Fig. 1).</p>
+
+<figure>
+<div class="figrow">
+<svg viewBox="115 0 490 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Five bubbles around a central company bubble, each naming a benefit of business process management">
+  <g font-family="Source Sans 3, Arial, sans-serif">
+    <line x1="360" y1="250" x2="360" y2="72" stroke="#7DD3FC" stroke-width="2"/>
+    <line x1="360" y1="250" x2="529" y2="195" stroke="#7DD3FC" stroke-width="2"/>
+    <line x1="360" y1="250" x2="465" y2="394" stroke="#7DD3FC" stroke-width="2"/>
+    <line x1="360" y1="250" x2="255" y2="394" stroke="#7DD3FC" stroke-width="2"/>
+    <line x1="360" y1="250" x2="191" y2="195" stroke="#7DD3FC" stroke-width="2"/>
+    <circle cx="360" cy="250" r="82" fill="#075985"/>
+    <text x="360" y="242" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">The company</text>
+    <text x="360" y="264" text-anchor="middle" font-size="12" fill="#E0F2FE">strategy delivered</text>
+    <text x="360" y="280" text-anchor="middle" font-size="12" fill="#E0F2FE">through its processes</text>
+    <circle cx="360" cy="72" r="66" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
+    <text x="360" y="56.0" text-anchor="middle" font-size="11" font-weight="700" fill="#0284C7">1</text>
+    <text x="360" y="74.0" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0C4A6E">Strategy becomes</text>
+    <text x="360" y="90.0" text-anchor="middle" font-size="11" fill="#0C4A6E">execution</text>
+    <circle cx="529" cy="195" r="66" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
+    <text x="529" y="178.99497500125938" text-anchor="middle" font-size="11" font-weight="700" fill="#0284C7">2</text>
+    <text x="529" y="196.99497500125938" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0C4A6E">Less friction</text>
+    <text x="529" y="212.99497500125938" text-anchor="middle" font-size="11" fill="#0C4A6E">between functions</text>
+    <circle cx="465" cy="394" r="66" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
+    <text x="465" y="378.0050249987406" text-anchor="middle" font-size="11" font-weight="700" fill="#0284C7">3</text>
+    <text x="465" y="396.0050249987406" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0C4A6E">Quality, compliance</text>
+    <text x="465" y="412.0050249987406" text-anchor="middle" font-size="11" fill="#0C4A6E">repeatable</text>
+    <circle cx="255" cy="394" r="66" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
+    <text x="255" y="378.0050249987406" text-anchor="middle" font-size="11" font-weight="700" fill="#0284C7">4</text>
+    <text x="255" y="396.0050249987406" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0C4A6E">Performance</text>
+    <text x="255" y="412.0050249987406" text-anchor="middle" font-size="11" fill="#0C4A6E">measurable</text>
+    <circle cx="191" cy="195" r="66" fill="#E0F2FE" stroke="#0284C7" stroke-width="2"/>
+    <text x="191" y="178.99497500125938" text-anchor="middle" font-size="11" font-weight="700" fill="#0284C7">5</text>
+    <text x="191" y="196.99497500125938" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0C4A6E">Deliberate change,</text>
+    <text x="191" y="212.99497500125938" text-anchor="middle" font-size="11" fill="#0C4A6E">knowledge kept</text>
+  </g>
+</svg>
+<ul>
+<li><b>1 Strategy becomes execution.</b> Objectives are met or missed inside processes; undesigned, unowned processes make them a hope, not a plan.</li>
+<li><b>2 Less friction between functions.</b> Delay and rework live at hand-offs; end-to-end management makes them visible and designable<sup><a href="#ref4">4</a></sup>.</li>
+<li><b>3 Quality and compliance repeatable, not heroic.</b> Regulators and auditors ask whether processes are in a state of control and whether management acts on their performance.</li>
+<li><b>4 Performance measurable.</b> A defined process gets indicators — cycle time, first-time-right, recurrence; an undefined one gets anecdote.</li>
+<li><b>5 Deliberate change, knowledge kept.</b> Owned processes change by plan rather than by crisis, and hold what the organization has learned through turnover and system replacements.</li>
+</ul>
+</div>
+<figcaption><span class="figlabel">Fig. 1 |</span> <span class="figtitle">Why BPM matters to a company.</span> Five reasons, arranged around the organization they serve.</figcaption>
+</figure>
+
+<h2 id="s3">Mapping is not managing</h2>
+<p>The most common reason BPM initiatives stall has nothing to do with method. The process maps are produced, the procedures are written, the training is delivered, and then the process goes back to being nobody's responsibility. Functional heads own their functions. The general manager owns everything and therefore, in practice, no single process. The consequences are predictable: local variants multiply from site to site, indicators are reported but not acted on, and an improvement made in one place is never carried to the others.</p>
+<p>The <i>Handbook on Business Process Management</i> identifies six core elements of a mature BPM capability: strategic alignment, governance, methods, information technology, people and culture<sup><a href="#ref5">5</a></sup> (Fig. 2). Governance — who decides, who owns, who is accountable — is the element most often skipped, and its absence is what quietly turns a process programme into a documentation programme. This paper argues that ownership has to be explicit and end to end, and that this is the role of the business process owner.</p>
+
+<figure>
+<svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Six tiles naming the core elements of BPM maturity, with governance highlighted">
+  <g font-family="Source Sans 3, Arial, sans-serif" font-size="13.5" font-weight="700" text-anchor="middle">
+    <rect x="10" y="20" width="108" height="70" rx="6" fill="#E0F2FE"/>
+    <text x="64" y="52" fill="#0C4A6E">Strategic</text><text x="64" y="70" fill="#0C4A6E">alignment</text>
+    <rect x="128" y="14" width="108" height="82" rx="6" fill="#0369A1" stroke="#F59E0B" stroke-width="3"/>
+    <text x="182" y="60" fill="#fff" font-size="15">Governance</text>
+    <rect x="246" y="20" width="108" height="70" rx="6" fill="#E0F2FE"/>
+    <text x="300" y="60" fill="#0C4A6E">Methods</text>
+    <rect x="364" y="20" width="108" height="70" rx="6" fill="#E0F2FE"/>
+    <text x="418" y="52" fill="#0C4A6E">Information</text><text x="418" y="70" fill="#0C4A6E">technology</text>
+    <rect x="482" y="20" width="108" height="70" rx="6" fill="#E0F2FE"/>
+    <text x="536" y="60" fill="#0C4A6E">People</text>
+    <rect x="600" y="20" width="108" height="70" rx="6" fill="#E0F2FE"/>
+    <text x="654" y="60" fill="#0C4A6E">Culture</text>
+    <text x="182" y="118" font-size="11.5" font-weight="400" fill="#B45309">the element most often skipped</text>
+  </g>
+</svg>
+<figcaption><span class="figlabel">Fig. 2 |</span> <span class="figtitle">Six core elements of BPM maturity.</span> The elements proposed by vom Brocke and Rosemann<sup><a href="#ref5">5</a></sup>. Method and technology attract most of the investment; governance decides whether any of it persists.</figcaption>
+</figure>
+
+<h2 id="s4">A governance structure led by business process owners</h2>
+<p>The governance model proposed here has four tiers (Fig. 3). In our view the number of layers matters less than the clarity of what each one decides. The process council sets priorities across processes, resolves conflicts between a process standard and a functional or site interest, and allocates resources; without it, the BPO has nowhere to escalate and no mandate behind the standard. The BPO holds end-to-end accountability for one process, or a small family of closely related processes, across all functions and all sites. Local process managers, often called key users, own execution and adherence at site or function level and are the first line of feedback to the BPO. Subject-matter experts and system owners provide technical depth, configure the supporting tool and safeguard the data; they serve the process but do not own it.</p>
+
+<figure>
+<svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four-tier governance pyramid: process council at the apex, business process owner, local process managers, and experts and system owners at the base, each with its responsibilities">
+  <polygon points="300,30 364.6,115 235.4,115" fill="#075985"/>
+  <polygon points="231.5,120 368.5,120 433.1,205 166.9,205" fill="#0284C7"/>
+  <polygon points="163.1,210 436.9,210 501.5,295 98.5,295" fill="#38BDF8"/>
+  <polygon points="94.6,300 505.4,300 570,385 30,385" fill="#BAE6FD"/>
+  <g font-family="Source Sans 3, Arial, sans-serif" text-anchor="middle">
+    <text x="300" y="107" font-size="11" font-weight="700" fill="#fff">Process council</text>
+    <text x="300" y="169" font-size="16" font-weight="700" fill="#fff">Business process owner</text>
+    <text x="300" y="258" font-size="14" font-weight="700" fill="#0C4A6E">Local process managers, key users</text>
+    <text x="300" y="348" font-size="14" font-weight="700" fill="#0C4A6E">Subject-matter experts and system owners</text>
+  </g>
+  <g stroke="#38BDF8" stroke-width="1.5">
+    <line x1="340" y1="80" x2="592" y2="80"/>
+    <line x1="405" y1="165" x2="592" y2="165"/>
+    <line x1="473" y1="255" x2="592" y2="255"/>
+    <line x1="539" y1="342" x2="592" y2="342"/>
+  </g>
+  <g font-family="Source Sans 3, Arial, sans-serif" font-size="13" class="svg-ink">
+    <text x="600" y="72"><tspan x="600" dy="0" font-weight="700" fill="#0369A1">Decides</tspan><tspan x="600" dy="16">priorities across processes; resolves</tspan><tspan x="600" dy="16">standard-versus-site conflicts; funds</tspan></text>
+    <text x="600" y="150"><tspan x="600" dy="0" font-weight="700" fill="#0369A1">Owns end to end</tspan><tspan x="600" dy="16">one process across all functions and sites:</tspan><tspan x="600" dy="16">design, train, monitor, improve; escalates</tspan></text>
+    <text x="600" y="240"><tspan x="600" dy="0" font-weight="700" fill="#0369A1">Executes and adheres</tspan><tspan x="600" dy="16">at site or function level; first line of</tspan><tspan x="600" dy="16">feedback on what works and what does not</tspan></text>
+    <text x="600" y="327"><tspan x="600" dy="0" font-weight="700" fill="#0369A1">Serves the process</tspan><tspan x="600" dy="16">technical depth, tool configuration, data;</tspan><tspan x="600" dy="16">does not own the standard</tspan></text>
+  </g>
+</svg>
+<figcaption><span class="figlabel">Fig. 3 |</span> <span class="figtitle">A four-tier process governance model.</span> Accountability narrows towards the apex while the number of people involved widens towards the base. The BPO tier is the pivot: it is the only tier that sees the process end to end and the only one whose remit is the process rather than a function or a site.</figcaption>
+</figure>
+
+<h3>The four responsibilities of the BPO</h3>
+<p>In the model presented here, the BPO's mandate is stated in four verbs — <b>design</b>, <b>train</b>, <b>monitor</b>, <b>improve</b> — each with what the owner owns, how it is measured and how it characteristically fails (Table 1). Three points deserve emphasis beyond the table. Design includes deciding explicitly what is mandatory everywhere and where local flexibility is allowed; an undocumented boundary is renegotiated at every site. Monitoring that reaches no decision forum, or a community session without follow-up, is measurement for its own sake. Improvement is where the role earns its cost: the BPO is why a lesson learned in one site becomes the standard in all, so that improvement compounds rather than fragments.</p>
+<p><b>AI as advisor and analyst</b> is a fifth capability alongside the human experts. An agent can surface patterns in deviation data, draft risk assessments, flag control-chart anomalies and pre-screen change requests; decision authority stays with the experts who evaluate, challenge and approve. The proposed governance model assumes that the governance structure defines where AI outputs enter the workflow, which review gates they pass, and how the team records its rationale when it accepts or overrides a recommendation.</p>
+
+<div class="tablewrap">
+<p class="tabcap"><b>Table 1 |</b> The BPO mandate: four responsibilities, what each one owns and how each one fails</p>
+<table>
+<thead><tr><th>Responsibility</th><th>What the BPO owns</th><th>Example indicators</th><th>Characteristic failure</th></tr></thead>
+<tbody>
+<tr><td><b>Design</b></td><td>The single standard, developed with a multidisciplinary team bringing the proper expertise: scope, roles, sequence, controls, records, tool configuration; the mandatory-versus-local boundary</td><td>Number of approved local variants; share of sites on the current standard</td><td>Boundary left undocumented; every site negotiates its own version</td></tr>
+<tr><td><b>Train</b></td><td>Curriculum, competence criteria, effectiveness verification, requalification triggers</td><td>Competence assessed versus attended; error rate by role after training</td><td>"Read and understood" treated as competence; CAPA closed with "retrained"</td></tr>
+<tr><td><b>Monitor</b></td><td>Three to five indicators, adherence checks, the report into management review; community evaluation sessions where key stakeholders review performance, identify areas for improvement and correction, and share best practices for cross-functional learning</td><td>Cycle time; first-time-right; backlog and ageing; recurrence; stakeholder satisfaction; best-practice adoption rate</td><td>Indicators produced monthly and read by no one with authority to act; community sessions held without follow-up actions or learning transfer</td></tr>
+<tr><td><b>Improve</b></td><td>The change backlog, its risk-and-value prioritization, cross-site deployment of lessons learned</td><td>Improvements deployed to all sites within a defined period; recurrence after CAPA</td><td>Improvement made in one site and never carried to the others</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="box">
+<h3>Box 1 | What a BPO needs in order to succeed</h3>
+<p>A title is not a mandate. We propose that, to work, the role needs six things:</p>
+<ol>
+<li>A defined scope with clear interfaces to adjacent processes, so that two owners never dispute the same hand-off.</li>
+<li>Authority over the <i>standard</i>, even without authority over the <i>people</i>, with an agreed escalation path when a site or function departs from it.</li>
+<li>A seat in management review, so that performance and non-adherence reach the people who can act.</li>
+<li>Ownership of, or at minimum a decisive voice on, the system that supports the process. An owner who cannot influence the tool configuration cannot enforce the design.</li>
+<li>Three to five indicators they are personally accountable for, and no more.</li>
+<li>Protected time. A BPO role added on top of a full functional job loses to the functional job every week.</li>
+</ol>
+<p>Whether a given process warrants the role is decided by the gates in Box 2.</p>
+</div>
+
+<div class="box">
+<h3>Box 2 | Four gates before appointing a BPO</h3>
+<p>The gates are our adaptation of the governance criteria of the BPM CBOK<sup><a href="#ref2">2</a></sup>, with a compliance overlay for regulated industries. They are walked in order, not tallied: a no at Gate 1 ends the analysis without an owner, a yes at Gate 2 ends it with one, and Gate 4 decides what kind.</p>
+<ol>
+<li><b>Gate 1 — Does it cross functions <i>and</i> sites?</b> Activity confined to one department, or to one site, is adequately run by its functional manager. A BPO's value lies in resolving hand-offs and accountability gaps between departments and in removing variation between sites; without that friction there is no need for a separate owner.</li>
+<li><b>Gate 2 — Is it regulated or audited?</b> If an external body — auditor, notified body, health authority — can hold the company accountable for the process, ambiguous ownership is a liability in itself. A yes here settles that the process needs a named, accountable owner regardless of Gate 3; go to Gate 4.</li>
+<li><b>Gate 3 — Is it strategic or high-risk?</b> Customer-facing impact, chronic performance problems, a candidate for major investment or automation, or variation between sites that creates real cost in compliance, efficiency or customer outcome. If none applies, a formal owner is premature; periodic review is enough until the risk profile changes.</li>
+<li><b>Gate 4 — Is there something to own?</b> A common workflow or system that every instance follows, and three to five meaningful indicators that describe it. Both present: appoint a BPO. A method applied inside other processes but no single workflow: appoint a framework owner (Table 5). Neither: the process belongs to a functional head or, where the law places it, to a regulatory role.</li>
+</ol>
+</div>
+
+<h3>The BPO and the functional manager</h3>
+<p>The BPO is never appointed into an empty space: each already has a functional manager who runs most of it and reasonably regards it as theirs — the Supplier Quality Manager for supplier qualification, the Learning &amp; Development Manager for training, the QA Compliance lead for deviations and CAPA. In the model presented here, the function is the unit of execution and the process is the unit of design. The functional manager is accountable for the function's contribution to the process — the people, the budget and the quality of the work done there; the BPO is accountable for the process's contribution to the organization — its standard, its end-to-end indicators, its hand-offs and its improvement. Line power stays with the function, which is why the six conditions in Box 1 exist. We propose resolving the overlap by writing three lines into the process charter: the BPO owns the standard, the hand-offs and the system rules, and any change to them passes through the BPO; the functional manager owns how the work is done inside the function; when a departmental indicator conflicts with the end-to-end one, the process indicator wins. In mid-size organizations one person may hold both roles, provided the charter says which decisions are made in which capacity and a counterpart outside the reporting line exists; in large multi-site organizations the BPO is drawn from outside the dominant function and functional managers act as process stewards at each site. Named and bounded, the overlap gives the process a hand that executes and a hand that designs; denied, it gives the process two owners and therefore none.</p>
+
+<h3>How BPO governance fails</h3>
+<p>The proposed model is simple to draw and easy to get wrong. The recurring failure modes, their symptoms and their remedies are summarized in Table 2. The common thread is that each failure removes one of the six conditions in Box 1 while leaving the organization chart intact, so the structure looks complete on paper for months before the absence of ownership shows in the indicators.</p>
+
+<div class="tablewrap">
+<p class="tabcap"><b>Table 2 |</b> Failure modes of BPO-led governance</p>
+<table>
+<thead><tr><th>Failure mode</th><th>How it shows</th><th>Remedy</th></tr></thead>
+<tbody>
+<tr><td>Title without authority</td><td>The BPO documents, reports and recommends; sites carry on as before</td><td>Escalation path and process-council sponsorship from day one</td></tr>
+<tr><td>Owner chosen from the dominant function</td><td>The standard is comfortable for that function and awkward for every other</td><td>Select for end-to-end perspective and negotiation skill, not functional seniority</td></tr>
+<tr><td>No local counterpart</td><td>The standard is issued; nobody at site level is accountable for adopting it</td><td>Name the key user before publishing the design</td></tr>
+<tr><td>Too many owners</td><td>Twenty standards, twenty dashboards, twenty escalation paths</td><td>Apply the gates in Box 2; five supported owners beat twenty nominal ones</td></tr>
+<tr><td>No link to management review</td><td>Indicators produced monthly and read by no one with authority</td><td>Make process performance a standing review input with minuted decisions</td></tr>
+<tr><td>Process ownership confused with system ownership</td><td>The process becomes whatever the tool does by default</td><td>The BPO specifies; the system owner delivers</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="s5">How artificial intelligence changes the practice of BPM</h2>
+<p>For thirty years BPM has been practised largely by hand: processes discovered through interviews and workshops, documented in diagrams and procedures, monitored through indicators compiled after the fact, and improved through projects. Artificial intelligence does not change what BPM is for, but we argue that it changes every one of the four verbs in the BPO's mandate (Table 3), and that it raises rather than lowers the need for an owner.</p>
+<p><b>Design, from interviews to evidence.</b> Process mining reconstructs the process as it actually runs from the event logs already sitting in the enterprise, workflow and transaction systems the process runs on<sup><a href="#ref6">6</a></sup>. Instead of asking people how a case moves from opening to closure, the BPO can see every variant that has occurred, where work waits, where it loops back and which sites diverge from the standard. The as-is workshop becomes a fact base. Generative models then do the drafting — process models, procedures, work instructions, training material, a first impact assessment — and can simulate how a redesigned flow would behave before anyone changes it. When a process-mining model is kept continuously synchronized with live execution data, it becomes a <b>digital twin</b> of the process: a virtual replica that the BPO can use to test "what if" scenarios — a new control point, a different approval sequence, a site consolidation — and predict the impact on cycle time, risk and resource load before committing the change to the real process.</p>
+<p><b>Train, from courses to expertise anchored in practice.</b> The persistent gap between "read and understood" and actual behaviour has a plausible explanation in how memory works: a procedure read on screen enters short-term memory, which holds little and fades within hours unless the content is retrieved and used; it becomes long-term, procedural memory — the kind that shapes what people actually do under pressure — only through repeated, spaced practice in context. If this model holds, a conventional LMS, optimized for delivery and acknowledgement, is addressing only the first step. The workforce could be trained on paper without having anchored the practice, and the way of working would then rest on individual recall rather than embedded competence. AI-enabled approaches could shift the emphasis. Assistants answering questions from controlled procedures at the moment of need — on the shop floor, at the desk, inside the workflow system — might close part of that gap, because each retrieval at the point of use is one more repetition that moves the procedure from short-term recall to long-term habit. Simulation of high-consequence decisions — an escalation, a change classification, a customer-facing decision — could reinforce the right response without real-world risk. Error patterns, linked to teams and roles, might allow targeted requalification rather than annual retraining of everyone. If this direction proves sound, the BPO's role would shift from ensuring that training records are complete to ensuring that expertise is genuinely anchored — measuring not whether people attended, but whether behaviour changed and whether the culture of doing things right the first time is strengthening.</p>
+<p><b>Monitor, from lagging indicators to prediction.</b> Conformance checking compares live execution against the designed model continuously, so drift is detected in days rather than at the next review. Anomaly detection on cycle-time, error and customer-feedback data surfaces trends before a threshold is breached; predictive models flag which actions are likely to miss their date, which changes carry unusual risk and which partners are heading for trouble. A management review can put a question to the process data during the meeting rather than to a slide prepared three weeks earlier, and the periodic performance review becomes largely assembled by the system and reviewed by people. The full power of this shift emerges when the process digital twin introduced at the design stage is fed by interconnected systems and databases — enterprise resource planning, execution, workflow and partner systems — creating a single, continuously updated data layer. With that layer in place, monitoring is no longer a periodic report compiled from siloed sources; it is a live, cross-system view of process health that the BPO can query, drill into and act on in real time.</p>
+<p><b>Improve, from projects to continuous.</b> Clustering similar incidents across sites and years exposes recurrence that no single investigator could see, which is the single largest opportunity in most corrective-action systems. Models propose root-cause hypotheses and improvement options for the owner to test, and agentic systems can execute the routine, low-risk steps of a workflow — routing, classification, completeness checks, drafting a case summary from the record — while a person approves. Improvement stops being an annual initiative and becomes a standing capability of the process.</p>
+
+<div class="tablewrap">
+<p class="tabcap"><b>Table 3 |</b> How AI changes each responsibility of the BPO, and the control the owner must specify</p>
+<table>
+<thead><tr><th>Responsibility</th><th>Traditional practice</th><th>AI-enabled practice</th><th>Control the BPO must specify</th></tr></thead>
+<tbody>
+<tr><td><b>Design</b></td><td>Interviews, workshops, hand-drawn as-is maps; procedures written from scratch</td><td>Process mining of event logs; generated drafts of models, procedures and training material; simulation of alternatives</td><td>Human decision on the standard; generated drafts pass document control and change control like any other</td></tr>
+<tr><td><b>Train</b></td><td>Classroom or e-learning; "read and understood" sign-off; annual retraining</td><td>Point-of-use assistants answering from controlled procedures; question logs reveal unclear design; targeted requalification</td><td>Assistant answers only from approved, current documents; answers are advisory, records remain human-entered or human-approved</td></tr>
+<tr><td><b>Monitor</b></td><td>Indicators compiled after the fact; periodic performance review assembled manually</td><td>Continuous conformance checking; anomaly detection and predictive alerts; natural-language queries in management review</td><td>Model intended use, performance monitoring and drift thresholds defined; alerts reviewed by a named role</td></tr>
+<tr><td><b>Improve</b></td><td>Improvement projects; root-cause analysis per event; lessons rarely carried across sites; the loop from finding to standard update is often left open</td><td>Cross-site clustering of recurrence; proposed root-cause hypotheses; agentic execution of routine, low-risk steps; <b>close-the-loop</b> — AI traces each improvement back through Design, triggering updates to the process model, procedures and training, so the corrected standard becomes the new baseline rather than a recommendation filed and forgotten</td><td>Human approval before any controlled record is written; autonomous steps limited to low-risk administrative actions behind deterministic gates; the BPO verifies that every closed corrective action has produced a measurable change in the process standard and its training, completing the cycle</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>What AI does not change: who is accountable (a life-sciences angle)</h3>
+<p>Regulators have been unusually quick and unusually clear on this point; the most detailed body of rules so far comes from the pharmaceutical sector, but the expectation it expresses is general (Table 4). The draft Annex 22 to the EU GMP guide, developed with PIC/S, requires that any AI used in GMP be fit for a defined intended use, validated, traceable in its training and test data and subject to human oversight, and it excludes adaptive and generative models from GMP-critical decisions altogether<sup><a href="#ref7">7</a></sup>. The FDA and EMA jointly published ten guiding principles for AI practice built around human-centred design, a risk-based approach and a clear context of use<sup><a href="#ref8">8</a></sup>; the ISPE GAMP guide on AI and the FDA's computer software assurance guidance supply the validation framework<sup><a href="#ref9">9</a>,<a href="#ref10">10</a></sup>; and the EU AI Act's obligations for high-risk systems, which include AI used in quality and process control, began phasing in from August 2026<sup><a href="#ref11">11</a></sup>. These requirements can be interpreted as converging on one expectation: that the organization's management system, and therefore a named owner, remains in control of how AI is used.</p>
+
+<div class="tablewrap">
+<p class="tabcap"><b>Table 4 |</b> The emerging regulatory framework for AI in regulated processes, 2024–2026 (pharmaceutical sector as the most developed example)</p>
+<table>
+<thead><tr><th>Instrument</th><th>Issuer</th><th>Year</th><th>Status</th><th>Requirement most relevant to process ownership</th></tr></thead>
+<tbody>
+<tr><td>Regulation (EU) 2024/1689, the AI Act<sup><a href="#ref11">11</a></sup></td><td>European Union</td><td>2024</td><td>In force; high-risk obligations phasing in from August 2026</td><td>Risk management, human oversight, logging and transparency for high-risk systems, including AI in quality and process control</td></tr>
+<tr><td>Guiding principles of good AI practice in drug development<sup><a href="#ref8">8</a></sup></td><td>FDA and EMA</td><td>2026</td><td>Published</td><td>Human-centred design; risk-based development and use; defined context of use; lifecycle quality management</td></tr>
+<tr><td>Draft Annex 22 to the EU GMP guide, artificial intelligence<sup><a href="#ref7">7</a></sup></td><td>European Commission, EMA, PIC/S</td><td>2025</td><td>Draft; consultation closed; final expected 2026</td><td>Fit for defined intended use; validation; traceable training and test data; human oversight; generative and adaptive models excluded from critical decisions</td></tr>
+<tr><td>GAMP guide: artificial intelligence<sup><a href="#ref9">9</a></sup></td><td>ISPE</td><td>2025</td><td>Published</td><td>Lifecycle and validation approach for AI and machine-learning components of computerized systems</td></tr>
+<tr><td>Computer software assurance for production and quality system software<sup><a href="#ref10">10</a></sup></td><td>FDA</td><td>2026</td><td>Final guidance</td><td>Risk-based assurance effort proportional to the software's impact on product quality and patient safety</td></tr>
+<tr><td>Warning letter citing over-reliance on AI<sup><a href="#ref12">12</a></sup></td><td>FDA</td><td>2026</td><td>Enforcement precedent</td><td>AI-generated specifications, procedures and master records without quality-unit review are a cGMP violation (Box 3)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="box">
+<h3>Box 3 | The first warning letter for over-reliance on AI</h3>
+<p>In April 2026 the FDA issued what is regarded as the first warning letter to cite over-reliance on artificial intelligence in drug manufacturing<sup><a href="#ref12">12</a></sup>. Investigators found that the manufacturer had used AI agents to generate product specifications, procedures and master production records without the quality-unit review that cGMP requires. Asked why a required validation step had not been performed, the firm answered that the AI had not told them it was necessary. The regulator did not accept that answer.</p>
+<p>The case is instructive precisely because nothing about it was exotic. The tools worked as designed; what was missing was an owner who had decided, in advance, what the tools were permitted to produce, what a human had to review before it became a controlled record, and how the resulting documents would enter document control and change control. A possible implication is that those are process-design decisions, and that a process owner is the natural role to take them.</p>
+</div>
+
+<h2 id="s6">A worked example: applying the gates to quality processes</h2>
+<p>The gates in Box 2 are easiest to see applied to one family of processes. The quality management system of a regulated manufacturer (e.g. pharmaceuticals, medical devices, food) is a convenient example because its processes are well defined, comparable across companies and inspected by third parties, and because it contains every ownership pattern the model produces. Not every process needs an owner of this kind, and creating owners indiscriminately produces committees rather than accountability; the gates decide the matter. In a regulated environment every core quality process passes Gate 2 — each is inspected — so the decision turns on Gates 1, 3 and 4. The processes that, in our assessment, pass all three and therefore justify a dedicated BPO are deviation and CAPA management, change control, document control, training and qualification, supplier qualification, customer complaints and feedback, and crisis management and post-market action. Processes that pass Gates 1 and 3 but not Gate 4 — quality risk management, validation, management review, internal audit — have a method to own but no single workflow, and need a framework owner rather than an owner of execution. Processes that fail Gate 1 because they are site-bound and technical belong to a functional head, and processes that are in fact regulatory roles, such as batch certification, should not be given an owner at all (Table 5).</p>
+
+<div class="tablewrap">
+<p class="tabcap"><b>Table 5 |</b> Critical quality processes, the Box 2 gates and the pragmatic ownership decision</p>
+<table>
+<thead><tr><th>Process</th><th>Role in the quality system</th><th>Gates (Box 2)</th><th>Ownership</th><th>Rationale</th></tr></thead>
+<tbody>
+<tr><td>Deviation and CAPA management</td><td>Core control loop: detect, investigate, prevent recurrence</td><td class="lt"><span class="y">✓</span> G1 Cross-function &amp; site<br><span class="y">✓</span> G3 Strategic / high-risk<br><span class="y">✓</span> G4 Common workflow<br><span class="y">✓</span> G4 3–5 indicators<br><b>4/4</b></td><td class="yes">Dedicated BPO</td><td>Highest volume, most cross-functional, most inspected; drifts into site variants without one owner</td></tr>
+<tr><td>Change control</td><td>Core control loop: gate on any change to a validated state</td><td class="lt"><span class="y">✓</span> G1 Cross-function &amp; site<br><span class="y">✓</span> G3 Strategic / high-risk<br><span class="y">✓</span> G4 Common workflow<br><span class="y">✓</span> G4 3–5 indicators<br><b>4/4</b></td><td class="yes">Dedicated BPO</td><td>Enterprise-wide; the BPO owns categorization logic and gates</td></tr>
+<tr><td>Document control and GDP</td><td>Foundation: attributable, traceable records</td><td class="lt"><span class="y">✓</span> G1 Cross-function &amp; site<br><span class="y">✓</span> G3 Strategic / high-risk<br><span class="y">✓</span> G4 Common workflow<br><span class="y">✓</span> G4 3–5 indicators<br><b>4/4</b></td><td class="yes">Dedicated BPO</td><td>Transactional workflow with a global tool; one owner for templates, review cycles, data-integrity rules</td></tr>
+<tr><td>Training and qualification</td><td>Foundation: competence of everyone operating the other processes</td><td class="lt"><span class="y">✓</span> G1 Cross-function &amp; site<br><span class="y">✓</span> G3 Strategic / high-risk<br><span class="y">✓</span> G4 Common workflow<br><span class="y">✓</span> G4 3–5 indicators<br><b>4/4</b></td><td class="yes">Dedicated BPO</td><td>Enterprise-wide, curriculum-based, measurable; the BPO must own training effectiveness — verifying that training translates into competent performance, not just attendance; weak wherever every function assumes someone else runs it</td></tr>
+<tr><td>Supplier and material qualification, including horizon scanning</td><td>Upstream control: quality cannot be tested in at release; horizon scanning anticipates regulatory and supply-chain change</td><td class="lt"><span class="y">✓</span> G1 Cross-function &amp; site<br><span class="y">✓</span> G3 Strategic / high-risk<br><span class="y">✓</span> G4 Common workflow<br><span class="y">✓</span> G4 3–5 indicators<br><b>4/4</b></td><td class="yes">Dedicated BPO</td><td>Cross-functional and multi-site; prevents each site re-auditing the same supplier to different criteria; the BPO drives a horizon-scanning strategy — systematically monitoring regulatory changes, emerging supply-chain risks and market signals to anticipate qualification needs before they become urgent</td></tr>
+<tr><td>Customer complaints and feedback</td><td>Voice of the customer: detect field issues, drive investigation, close the loop with the market</td><td class="lt"><span class="y">✓</span> G1 Cross-function &amp; site<br><span class="y">✓</span> G3 Strategic / high-risk<br><span class="y">✓</span> G4 Common workflow<br><span class="y">✓</span> G4 3–5 indicators<br><b>4/4</b></td><td class="yes">Dedicated BPO</td><td>Cross-functional by nature — spans regulatory, commercial, production and quality; without one owner, complaints stall between functions and trending is fragmented</td></tr>
+<tr><td>Crisis management and post-market action</td><td>Escalation and containment: protect patients, consumers and the brand when a systemic issue emerges</td><td class="lt"><span class="y">✓</span> G1 Cross-function &amp; site<br><span class="y">✓</span> G3 Strategic / high-risk<br><span class="y">✓</span> G4 Common workflow<br><span class="y">✓</span> G4 3–5 indicators<br><b>4/4</b></td><td class="yes">Dedicated BPO</td><td>Rapid, enterprise-wide coordination across regulatory affairs, supply chain, legal and communications; recall readiness and mock-recall exercises require a single accountable process owner</td></tr>
+<tr><td>Quality risk management</td><td>Decision logic inside every other process</td><td class="lt"><span class="y">✓</span> G1 Cross-function &amp; site<br><span class="y">✓</span> G3 Strategic / high-risk<br><span class="n">–</span> G4 Common workflow<br><span class="n">–</span> G4 3–5 indicators<br><b>2/4</b></td><td class="cond">Framework owner</td><td>Too pervasive to run as a workflow; own the methodology, tools and risk register, not the assessments</td></tr>
+<tr><td>Validation and qualification</td><td>Verification backbone: the process does what it should, every time</td><td class="lt"><span class="y">✓</span> G1 Cross-function &amp; site<br><span class="y">✓</span> G3 Strategic / high-risk<br><span class="n">–</span> G4 Common workflow<br><span class="n">–</span> G4 3–5 indicators<br><b>2/4</b></td><td class="cond">Framework owner</td><td>Policy, master plan, computerized-system framework and templates centrally; execution stays with site engineering</td></tr>
+<tr><td>Management review and product quality review</td><td>Oversight: trends reach decision-makers</td><td class="lt"><span class="y">✓</span> G1 Cross-function &amp; site<br><span class="n">–</span> G3 Strategic / high-risk<br><span class="n">–</span> G4 Common workflow<br><span class="n">–</span> G4 3–5 indicators<br><b>1/4</b></td><td class="cond">Framework owner</td><td>Own cadence, inputs, indicator set and escalation rules; the review itself is a leadership forum</td></tr>
+<tr><td>Self-inspection and internal audit</td><td>Oversight: verification before a regulator's</td><td class="lt"><span class="y">✓</span> G1 Cross-function &amp; site<br><span class="y">✓</span> G3 Strategic / high-risk<br><span class="n">–</span> G4 Common workflow<br><span class="n">–</span> G4 3–5 indicators<br><b>2/4</b></td><td class="cond">Framework / programme owner</td><td>Methodology and finding classification centrally; execution distributed across trained auditors</td></tr>
+<tr><td>QC laboratory control and analytical methods</td><td>Verification backbone: evidence that product meets specification</td><td class="lt"><span class="n">–</span> G1 Cross-function &amp; site<br><span class="n">–</span> G3 Strategic / high-risk<br><span class="n">–</span> G4 Common workflow<br><span class="y">✓</span> G4 3–5 indicators<br><b>1/4</b></td><td class="no">Functional head</td><td>Site-bound and technical; the laboratory head owns it. Exception: OOS investigation, which behaves like CAPA</td></tr>
+<tr><td>Batch release and qualified-person certification</td><td>Legally accountable decision point</td><td class="lt"><span class="n">–</span> G1 Cross-function &amp; site<br><span class="n">–</span> G3 Strategic / high-risk<br><span class="n">–</span> G4 Common workflow<br><span class="n">–</span> G4 3–5 indicators<br><b>0/4</b></td><td class="no">Regulatory role</td><td>A regulatory role defined by law, not a workflow to optimize; standardize its inputs, leave the decision where the law places it</td></tr>
+</tbody>
+</table>
+<p class="tabnote">GDP, good documentation practice; OOS, out-of-specification; PQR, product quality review. Gate 2 (regulated) is met by every row and is omitted. Three ownership tiers are used: a <i>dedicated BPO</i> owns the end-to-end workflow; a <i>framework owner</i> owns the methodology, policy, templates and indicator set centrally while execution stays with the functions or sites; a <i>functional head</i> or a <i>regulatory role</i> owns processes that are site-bound or defined by law. The tiering and the gate scores are our synthesis.</p>
+</div>
+
+<section class="refs" aria-labelledby="refh" id="refs">
+<h2 id="refh">References</h2>
+<ol>
+<li id="ref1">Hammer, M. &amp; Champy, J. <i>Reengineering the Corporation: A Manifesto for Business Revolution</i> (HarperBusiness, 1993). <a href="https://books.google.com/books/about/Reengineering_the_Corporation.html?id=K46fCYFoBHcC" target="_blank" rel="noopener">Google Books</a></li>
+<li id="ref2">Association of Business Process Management Professionals. <i>Guide to the Business Process Management Common Body of Knowledge (BPM CBOK)</i> v4.0 (ABPMP International, 2020). <a href="https://www.abpmp.org/page/guide_BPM_CBOK" target="_blank" rel="noopener">abpmp.org</a></li>
+<li id="ref3">Dumas, M., La Rosa, M., Mendling, J. &amp; Reijers, H. A. <i>Fundamentals of Business Process Management</i> 2nd edn (Springer, 2018). <a href="https://doi.org/10.1007/978-3-662-56509-4" target="_blank" rel="noopener">doi:10.1007/978-3-662-56509-4</a></li>
+<li id="ref4">McCormack, K. Business process orientation: do you have it? <i>Quality Progress</i> <b>34</b>, 51–58 (2001). <a href="https://asq.org/quality-progress/articles/case-studies/business-process-orientation-do-you-have-it?id=d3de1a78e75f43e68c39c0ee27d55219" target="_blank" rel="noopener">asq.org</a></li>
+<li id="ref5">vom Brocke, J. &amp; Rosemann, M. (eds) <i>Handbook on Business Process Management</i> 2nd edn (Springer, 2015). <a href="https://doi.org/10.1007/978-3-642-45100-3" target="_blank" rel="noopener">doi:10.1007/978-3-642-45100-3</a></li>
+<li id="ref6">van der Aalst, W. M. P. <i>Process Mining: Data Science in Action</i> 2nd edn (Springer, 2016). <a href="https://doi.org/10.1007/978-3-662-49851-4" target="_blank" rel="noopener">doi:10.1007/978-3-662-49851-4</a></li>
+<li id="ref7">European Commission, European Medicines Agency &amp; PIC/S. <i>EudraLex Volume 4, Draft Annex 22: Artificial Intelligence</i> (2025). <a href="https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-4_en" target="_blank" rel="noopener">ec.europa.eu</a></li>
+<li id="ref8">US Food and Drug Administration &amp; European Medicines Agency. <i>Guiding Principles of Good AI Practice in Drug Development</i> (2026). <a href="https://www.fda.gov/science-research/artificial-intelligence-and-medical-products/artificial-intelligence-fda-publications" target="_blank" rel="noopener">fda.gov</a></li>
+<li id="ref9">International Society for Pharmaceutical Engineering. <i>GAMP Guide: Artificial Intelligence</i> (ISPE, 2025). <a href="https://ispe.org/publications/guidance-documents/gamp" target="_blank" rel="noopener">ispe.org</a></li>
+<li id="ref10">US Food and Drug Administration. <i>Computer Software Assurance for Production and Quality System Software: Guidance for Industry and FDA Staff</i> (FDA, 2026). <a href="https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-system-software" target="_blank" rel="noopener">fda.gov</a></li>
+<li id="ref11">European Parliament and Council. Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). <i>Official Journal of the European Union</i> L, 12 July 2024. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">eur-lex.europa.eu</a></li>
+<li id="ref12">US Food and Drug Administration. Warning letter citing reliance on artificial intelligence to create drug specifications, procedures and production records without quality-unit review (April 2026). <a href="https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters" target="_blank" rel="noopener">fda.gov</a></li>
+</ol>
+</section>
+
+<footer class="end">
+<p>Author contributions: E.D. conceived the argument and wrote the manuscript. Competing interests: the author declares no competing interests. Figures 1–3 and Tables 1–5 are original to this article.</p>
+</footer>
+</main>
+</div>
+<button id="backBtn" aria-label="Return to reading position" style="display:none;position:fixed;bottom:24px;right:24px;background:#075985;color:#fff;border:none;border-radius:24px;padding:10px 18px;font:13px/1.3 -apple-system,BlinkMacSystemFont,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:9999;transition:opacity .2s">↑ Back to text</button>
+<script>
+(function(){
+  var btn=document.getElementById('backBtn'), savedY=null, away=false;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('sup a[href^="#ref"], nav.nav a[href^="#"]');
+    if(!a) return;
+    savedY=window.scrollY; away=false;
+    btn.textContent = a.closest('nav.nav') ? '↑ Back to contents' : '↑ Back to text';
+    btn.style.display='block';
+  });
+  btn.addEventListener('click',function(){
+    if(savedY!==null) window.scrollTo({top:savedY,behavior:'smooth'});
+    btn.style.display='none'; savedY=null;
+  });
+  window.addEventListener('scroll',function(){
+    if(savedY===null) return;
+    var d=Math.abs(window.scrollY-savedY);
+    if(d>=80){ away=true; return; }
+    if(away){ btn.style.display='none'; savedY=null; away=false; }
+  });
+})();
+</script>
+</body>
+</html>
